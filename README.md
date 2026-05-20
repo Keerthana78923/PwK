@@ -15,7 +15,7 @@ _See [wedding.pwedsk.com](http://wedding.pwedsk.com/) for a demo. Use invite cod
    data.
 
 # Getting Started
-1. `$ git clone https://github.com/Keerthana78923/pwk.git` - clone this project to your computer
+1. `$ git clone https://github.com/Keerthana78923/pwedsk.git` - clone this project to your computer
 2. `$ cd wedding-website` - go inside the project directory
 3. `$ npm install` - install dependencies
 4. `$ gulp` - compile sass to css, minify js, etc.
