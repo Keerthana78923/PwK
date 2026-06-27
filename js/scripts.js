@@ -175,63 +175,67 @@ $(document).ready(function () {
     });
 
     /********************** Add to Calendar **********************/
-    var myCalendar = createCalendar({
-        options: {
-            class: '',
-            // You can pass an ID. If you don't, one will be generated for you
-            id: ''
-        },
-        data: {
-            // Event title
-            title: "Prajith and Keerthana's Wedding",
+    // var myCalendar = createCalendar({
+    //     options: {
+    //         class: '',
+    //         // You can pass an ID. If you don't, one will be generated for you
+    //         id: ''
+    //     },
+    //     data: {
+    //         // Event title
+    //         title: "Prajith and Keerthana's Wedding",
 
-            // Event start date
-            start: new Date('Nov 27, 2017 10:00'),
+    //         // Event start date
+    //         start: new Date('Nov 27, 2017 10:00'),
 
-            // Event duration (IN MINUTES)
-            // duration: 120,
+    //         // Event duration (IN MINUTES)
+    //         // duration: 120,
 
-            // You can also choose to set an end time
-            // If an end time is set, this will take precedence over duration
-            end: new Date('Nov 29, 2017 00:00'),
+    //         // You can also choose to set an end time
+    //         // If an end time is set, this will take precedence over duration
+    //         end: new Date('Nov 29, 2017 00:00'),
 
-            // Event Address
-            address: 'ITC Fortune Park Hotel, Kolkata',
+    //         // Event Address
+    //         address: 'ITC Fortune Park Hotel, Kolkata',
 
-            // Event Description
-            description: "We can't wait to see you on our big day. For any queries or issues, please contact Mr. Amit Roy at +91 9876543210."
-        }
-    });
+    //         // Event Description
+    //         description: "We can't wait to see you on our big day. For any queries or issues, please contact Mr. Amit Roy at +91 9876543210."
+    //     }
+    // });
 
-    $('#add-to-cal').html(myCalendar);
+    // $('#add-to-cal').html(myCalendar);
 
 
     /********************** RSVP **********************/
     $('#rsvp-form').on('submit', function (e) {
         e.preventDefault();
-        var data = $(this).serialize();
 
-        $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
+        var $form = $(this);
+        var $alertWrapper = $('#alert-wrapper');
 
-        if (MD5($('#invite_code').val()) !== 'b0e53b10c1f55ede516b240036b88f40'
-            && MD5($('#invite_code').val()) !== '2ac7f43695eb0479d5846bb38eec59cc') {
-            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
-        } else {
-            $.post('https://script.google.com/macros/s/AKfycbyo0rEknln8LedEP3bkONsfOh776IR5lFidLhJFQ6jdvRiH4dKvHZmtoIybvnxpxYr2cA/exec', data)
-                .done(function (data) {
-                    console.log(data);
-                    if (data.result === "error") {
-                        $('#alert-wrapper').html(alert_markup('danger', data.message));
-                    } else {
-                        $('#alert-wrapper').html('');
-                        $('#rsvp-modal').modal('show');
-                    }
-                })
-                .fail(function (data) {
-                    console.log(data);
-                    $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
-                });
-        }
+        $alertWrapper.html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
+
+        $.ajax({
+            url: $form.attr('action'),
+            type: 'POST',
+            data: $form.serialize(),
+            dataType: 'text'
+        }).done(function (response) {
+            $alertWrapper.empty();
+
+            try {
+                var result = $.parseJSON(response);
+                if (result && result.result === 'success') {
+                    $form[0].reset();
+                    $('#rsvp-modal').modal('show');
+                    return;
+                }
+            } catch (err) {}
+
+            $alertWrapper.html(alert_markup('success', '<strong>Thank you!</strong> Your RSVP was submitted successfully.'));
+        }).fail(function () {
+            $alertWrapper.html(alert_markup('danger', '<strong>Sorry!</strong> There was a problem saving your RSVP. Please try again.'));
+        });
     });
 
 });
