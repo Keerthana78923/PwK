@@ -71,10 +71,9 @@ $(document).ready(function () {
     /***************** Nav Transformicon ******************/
 
     /* When user clicks the Icon */
-    $('.nav-toggle').click(function () {
-        $(this).toggleClass('active');
-        $('.header-nav').toggleClass('open');
-        event.preventDefault();
+    $('#btn-show-map').on('click', function (e) {
+        e.preventDefault();
+        window.open('https://www.google.com/maps?q=11.6141633,78.1067423', '_blank', 'noopener,noreferrer');
     });
     /* When user clicks a link */
     $('.header-nav li a').click(function () {
@@ -241,7 +240,7 @@ $(document).ready(function () {
 
 // Google map
 function initMap() {
-    var location = {lat: 22.5932759, lng: 88.27027720000001};
+    var location = {lat: 11.614177, lng: 78.107407};
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 15,
         center: location,
