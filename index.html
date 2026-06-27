@@ -73,6 +73,7 @@
 
     body {
         font-family: 'Libre Baskerville', serif;
+        font-size: 18px;
         background: linear-gradient(135deg, #fffaf7 0%, #fff3e9 100%);
         color: var(--text);
         line-height: 1.75;
@@ -213,7 +214,7 @@
         }
 
         section p {
-            font-size: 1.08rem;
+            font-size: 1.32rem;
             color: var(--muted);
         }
 
@@ -329,10 +330,19 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
+            color: var(--muted);
         }
 
         .rsvp .rsvp-form button {
             margin-top: 10px;
+        }
+
+        .rsvp .rsvp-form select:valid {
+            color: var(--text);
+        }
+
+        .rsvp .rsvp-form select option {
+            color: var(--text);
         }
 
         footer {
