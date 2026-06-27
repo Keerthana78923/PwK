@@ -58,21 +58,216 @@
     <link rel="stylesheet" href="css/queries.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@500;600;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+        --bg: #fffaf7;
+        --card: #fffdf9;
+        --text: #2f241f;
+        --muted: #7b655d;
+        --accent: #c6896b;
+        --accent-2: #8d5a45;
+        --border: rgba(140, 90, 69, 0.16);
+    }
+
+    body {
+        font-family: 'Libre Baskerville', serif;
+        background: linear-gradient(135deg, #fffaf7 0%, #fff3e9 100%);
+        color: var(--text);
+        line-height: 1.75;
+    }
+
+        .hero {
+            background:
+                linear-gradient(135deg, rgba(34, 19, 14, 0.82) 0%, rgba(116, 72, 57, 0.55) 100%),
+                url('img/eng_pics/IMG_3483-sm.jpg') center/cover no-repeat;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.18), transparent 35%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
         .hero-content h1 {
             font-family: 'Great Vibes', cursive;
             font-size: 8rem;
             letter-spacing: 0.02em;
+            margin-bottom: 0.7rem;
+            text-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-content .intro,
+        .hero-content .hero-subtitle {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.18rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             margin-bottom: 0.5rem;
+        }
+
+        .hero-content .hero-subtitle {
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            margin-top: 0.8rem;
+            opacity: 0.95;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            width: 100%;
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .navigation.is-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .navigation header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .primary-nav li a,
+        .member-actions li a {
+            color: #ffffff;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .primary-nav li a:hover,
+        .member-actions li a:hover {
+            color: #ffe4d9;
+            transform: translateY(-2px);
+        }
+
+        .btn,
+        .btn-fill,
+        .btn-accent,
+        .btn-white {
+            border-radius: 999px;
+            padding: 14px 28px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.16);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover,
+        .btn-fill:hover,
+        .btn-accent:hover,
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+        }
+
+        section {
+            padding: 90px 0;
+            position: relative;
+        }
+
+        section h3,
+        .header,
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 250, 247, 0.95);
+            padding: 0.35rem 0;
+            display: inline-block;
+            border-bottom: 1px solid rgba(140, 90, 69, 0.12);
+            backdrop-filter: blur(6px);
+        }
+
+        section p {
+            font-size: 1.08rem;
+            color: var(--muted);
+        }
+
+        #invitation,
+        #instagram,
+        #eng-pics,
+        #map,
+        .rsvp {
+            background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.95));
+        }
+
+        .events .wp3,
+        .events .wp4,
+        .events .wp5,
+        .events .wp6,
+        .rsvp-form,
+        #map-content {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 20px 45px rgba(82, 47, 36, 0.08);
+            padding: 24px;
+        }
+
+        .img-wrap {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 18px 36px rgba(0, 0, 0, 0.14);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .img-wrap:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 42px rgba(0, 0, 0, 0.18);
+        }
+
+        .img-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .img-wrap:hover img {
+            transform: scale(1.05);
         }
 
         .map-embed {
             position: relative;
             min-height: 480px;
             overflow: hidden;
-            border-radius: 8px;
-            margin-top: 20px;
+            border-radius: 24px;
+            margin-top: 24px;
+            box-shadow: 0 24px 44px rgba(0, 0, 0, 0.14);
         }
 
         .map-embed iframe {
@@ -94,30 +289,77 @@
         }
 
         #map-content {
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255,255,255,0.96);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
             pointer-events: auto;
         }
 
-    .rsvp .rsvp-form .form-input-group select {
-        width: 100%;
-        height: 100%;
-        padding-left: 68px;
-        border: none;
-        background: transparent;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        color: #b9b2b2;
-        outline: none;
-        font-size: 14px;
-    }
+        .rsvp .rsvp-form .form-input-group {
+            position: relative;
+            margin-bottom: 15px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: #fff;
+            overflow: hidden;
+        }
 
-    .rsvp .rsvp-form .form-input-group select:focus {
-        outline: none;
-    }
+        .rsvp .rsvp-form .form-input-group i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+        }
+
+        .rsvp .rsvp-form input,
+        .rsvp .rsvp-form select {
+            width: 100%;
+            height: 100%;
+            padding: 14px 16px 14px 48px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 15px;
+            outline: none;
+        }
+
+        .rsvp .rsvp-form select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+
+        .rsvp .rsvp-form button {
+            margin-top: 10px;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c201b, #47322b);
+            color: #f7ece5;
+            padding: 40px 0;
+        }
+
+        footer p {
+            color: #f7ece5;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                min-height: 90vh;
+                padding-top: 100px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .hero-content h1 {
+                font-size: 3.2rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css" onerror="loadCssFromCDN('animate.css')">
     <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css" onerror="loadCssFromCDN('font-awesome.css')">
@@ -156,9 +398,9 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="hero-content text-center">
-                    <h1>Prajithh <span style="color:red;">♥</span> Keerthana</h1>
-                    <!--<p class="intro">Ram & Antara are getting hitched!</p>-->
-                    <!--<a href="#" class="btn btn-fill btn-large btn-margin-right">Scroll Down</a> -->
+                    <p class="intro">A celebration of love, family, and forever</p>
+                    <h1>Prajith & Keerthana</h1>
+                    <p class="hero-subtitle">12th & 13th September 2026 • Salem, Tamil Nadu</p>
                 </div>
             </div>
         </div>
@@ -189,7 +431,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h3 class="header">Events</h3>
+                <h3 class="header section-title">Events</h3>
             </div>
         </div>
         <div class="row">
@@ -225,7 +467,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h3>A picture is worth a thousand words!</h3>
+                <h3 class="section-title">A picture is worth a thousand words!</h3>
                 <p>Help us capture the moment, tag your photos with the hashtag
                     <a href="https://instagram.com/explore/tags/ramandantara/" target="_blank">#DestinedToBePK</a>
                 </p>
@@ -243,7 +485,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h3 class="header">Engagement Pics</h3>
+                <h3 class="header section-title">Engagement Pics</h3>
             </div>
         </div>
         <div class="row">
