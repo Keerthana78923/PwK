@@ -56,13 +56,49 @@ $(document).ready(function () {
     /***************** Initiate Fancybox ******************/
 
     $('.single_image').fancybox({
-        padding: 4
+        padding: 4,
+        tpl: { error: '' },
+        afterLoad: function (current, previous) {
+            if (current && current.hasError) {
+                var thumb = '';
+                try {
+                    if (current.element && current.element.find) {
+                        thumb = current.element.find('img').attr('src') || '';
+                    }
+                } catch (e) {}
+                var large = thumb ? thumb.replace('-sm', '-lg') : '';
+                var src = large || thumb || current.href || '';
+                if (src) {
+                    current.content = '<img src="' + src + '" style="max-width:100%;height:auto;" onerror="this.onerror=null;this.src=\'' + (thumb || current.href || '') + '\';">';
+                } else {
+                    current.content = '';
+                }
+            }
+        }
     });
 
     $('.fancybox').fancybox({
         padding: 4,
         width: 1000,
-        height: 800
+        height: 800,
+        tpl: { error: '' },
+        afterLoad: function (current, previous) {
+            if (current && current.hasError) {
+                var thumb = '';
+                try {
+                    if (current.element && current.element.find) {
+                        thumb = current.element.find('img').attr('src') || '';
+                    }
+                } catch (e) {}
+                var large = thumb ? thumb.replace('-sm', '-lg') : '';
+                var src = large || thumb || current.href || '';
+                if (src) {
+                    current.content = '<img src="' + src + '" style="max-width:100%;height:auto;" onerror="this.onerror=null;this.src=\'' + (thumb || current.href || '') + '\';">';
+                } else {
+                    current.content = '';
+                }
+            }
+        }
     });
 
     /***************** Tooltips ******************/
